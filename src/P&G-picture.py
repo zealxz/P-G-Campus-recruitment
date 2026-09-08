@@ -24,13 +24,13 @@ def get_all_transforms():
     return all_transforms
 
 
+from functools import lru_cache
+
+@lru_cache(maxsize=None)
 def find_sequences(target_str):
     target_perm = transform_to_perm(target_str)
     all_transforms = get_all_transforms()
-    transform_perm_list = []
-    for s in all_transforms:
-        perm = transform_to_perm(s)
-        transform_perm_list.append((s, perm))
+    transform_perm_list = [(s, transform_to_perm(s)) for s in all_transforms]
 
     solutions_2step = []
     solutions_3step = []
